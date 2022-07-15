@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Hiển thị phim - Admin</title>
+    <!-- Style css -->
+    <link href="css/styles.css" rel="stylesheet" />
+    <!-- Resposive css -->
+    <link href="css/responsive.css" rel="stylesheet" />
+    <!-- BOX ICONS -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Icon fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/5fc95559bb.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- FIXME: Create show items -->
+    <script>
+      window.onload = function manageMovie(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var manageResult = JSON.parse(this.responseText);
+            var i =1;
+            var len = manageResult.length;
+            // alert(len);
+            var iResult = 0;
+            for(;iResult < len; iResult++){
+              if(i <= 10){
+                document.getElementById("myTable").rows[i].cells[0].innerHTML = manageResult[iResult].Id;
+                document.getElementById("myTable").rows[i].cells[1].innerHTML = manageResult[iResult].MovieName;
+                document.getElementById("myTable").rows[i].cells[2].innerHTML = manageResult[iResult].CategoryName;
+                i++;
+              }
+              else{
+                break;
+              }
+            }
+          }
+        };
+        xhttp.open("GET", "/aecaychuoi/admin/server/postcontroller?action=manage", true);
+        xhttp.send();
+      }
+    </script>
+  </head>
+  <body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.php"
+        ><i class="bx bx-movie-play bx-tada main-color"></i> a<span
+          class="main-color"
+          >e</span
+        >cay<span class="main-color">chuoi</span></a
+      >
+      <button
+        class="btn btn-link btn-sm order-1 order-lg-0"
+        id="sidebarToggle"
+        href="#!"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="container">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="form-inline position-relative my-2 d-inline-block">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Tìm kiếm..."
+            aria-label="Tìm kiếm..."
+          />
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                ><i class="fas fa-user fa-fw"></i
+              ></a>
+              <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="userDropdown"
+              >
+                <a class="dropdown-item" href="logout.php">Đăng xuất</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar Search -->
+    <!-- Start layout right -->
+    <div id="layoutSidenav">
+      <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+          <div class="sb-sidenav-menu">
+            <div class="nav">
+              <div class="sb-sidenav-menu-heading">Quản lý trang web</div>
+              <a
+                class="nav-link collapsed"
+                href="#"
+                data-toggle="collapse"
+                data-target="#collapseLayouts"
+                aria-expanded="false"
+                aria-controls="collapseLayouts"
+              >
+                <div class="sb-nav-link-icon">
+                  <i class="bx bx-book-reader bx-tada main-color"></i>
+                </div>
+                Quản lý phim
+                <div class="sb-sidenav-collapse-arrow">
+                  <i class="fas fa-angle-down"></i>
+                </div>
+              </a>
+              <div
+                class="collapse"
+                id="collapseLayouts"
+                aria-labelledby="headingOne"
+                data-parent="#sidenavAccordion"
+              >
+                <nav class="sb-sidenav-menu-nested nav">
+                  <a class="nav-link" href="show-items.html">Hiển thị phim</a>
+                  <a class="nav-link" href="add-items.html">Thêm phim</a>
+                  <a class="nav-link" href="delete-items.html">Xóa phim</a>
+                  <a class="nav-link" href="edit-items.html">Chỉnh sửa phim</a>
+                </nav>
+              </div>
+                <a
+                  class="nav-link collapsed"
+                  href="#"
+                  data-toggle="collapse"
+                  data-target="#collapsePages"
+                  aria-expanded="false"
+                  aria-controls="collapsePages"
+                >
+                  <div class="sb-nav-link-icon">
+                    <i class="bx bxs-user-account bx-tada main-color"></i>
+                  </div>
+                    Quản lý người dùng
+                    <div class="sb-sidenav-collapse-arrow">
+                      <i class="fas fa-angle-down"></i>
+                    </div>
+                </a>
+                <div
+                  class="collapse"
+                  id="collapsePages"
+                  aria-labelledby="headingTwo"
+                  data-parent="#sidenavAccordion"
+                >
+                  <nav
+                    class="sb-sidenav-menu-nested nav accordion"
+                    id="sidenavAccordionPages"
+                  >
+                    <a class="nav-link" href="user-manage.html">Danh sách người dùng</a>
+                  </nav>
+                </div>
+              <div class="sb-sidenav-menu-heading">Khác</div>
+              <a class="nav-link" href="charts.html">
+                <div class="sb-nav-link-icon">
+                  <i class="bx bx-line-chart-down bx-tada main-color"></i>
+                </div>
+                Lượt truy cập
+              </a>
+              <a class="nav-link" href="tables.html">
+                <div class="sb-nav-link-icon">
+                  <i class="bx bx-table bx-tada main-color"></i>
+                </div>
+                Thống kê phim
+              </a>
+            </div>
+          </div>
+          <!-- <div class="sb-sidenav-footer">
+            <div class="small">Logged in as:</div>
+            Start Bootstrap
+          </div> -->
+        </nav>
+      </div>    
+      <div id="layoutSidenav_content">
+        <main>
+          <div class="container-fluid">
+            <h1 class="mt-4">Hiển thị phim</h1>
+            <ol class="breadcrumb mb-4">
+              <li class="breadcrumb-item">
+                <a href="index.php">Bảng thống kê</a>
+              </li>
+              <li class="breadcrumb-item active">Hiển thị phim</li>
+            </ol>
+            <div class="card mb-4">
+              <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                Các bộ phim hiện đang có trên web
+              </div>
+              <div class="card-body">
+                <table
+                    class="table table-bordered"
+                    id="myTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Tên phim</th>
+                        <th>Thể loại</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Nobody</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Lupin</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Black Widow</td>
+                        <td>Viễn tưởng</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>Girl From Nowhere</td>
+                        <td>Kinh dị - Tâm lý</td>
+                      </tr>
+                      <tr>
+                        <td>5</td>
+                        <td>18 Again</td>
+                        <td>Tâm lý - Tình cảm</td>
+                      </tr>
+                      <tr>
+                        <td>6</td>
+                        <td>Venom</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td>7</td>
+                        <td>Mr Queen</td>
+                        <td>Cổ trang</td>
+                      </tr>
+                      <tr>
+                        <td>8</td>
+                        <td>Vincenzo</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td>9</td>
+                        <td>Crash Landing On You</td>
+                        <td>Tình cảm</td>
+                      </tr>
+                      <tr>
+                        <td>10</td>
+                        <td>John Wick</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td>11</td>
+                        <td>Godzilla and Kong</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td>12</td>
+                        <td>Avengers: Endgame</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td>11</td>
+                        <td>Godzilla and Kong</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td>12</td>
+                        <td>Avengers: Endgame</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td>11</td>
+                        <td>Godzilla and Kong</td>
+                        <td>Hành động</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+          <div class="container-fluid">
+            <div
+              class="d-flex align-items-center justify-content-between small"
+            >
+              <div class="text-muted">
+                <!-- Copyright &copy; Your Website 2021 -->
+              </div>
+              <div>
+                <a href="#">Privacy Policy</a>
+                &middot;
+                <a href="#">Terms &amp; Conditions</a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/scripts.js"></script>
+    <script
+      src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../admin/assets/demo/chart-area-demo.js"></script>
+    <script src="../admin/assets/demo/chart-bar-demo.js"></script>
+    <script src="../admin/assets/demo/chart-pie-demo.js"></script>
+    <script src="../admin/assets/demo/datatables-demo.js"></script>
+  </body>
+</html>

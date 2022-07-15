@@ -1,0 +1,6 @@
+Hướng dẫn đăng nhập trang quản trị:
+- Tạo database: aecaychuoi utf8_general_ci
+- Upload file movie.sql lên database (chỉ có dữ liệu admin)
+- Tài khoản đăng nhập trang admin:
+	. User: aecaychuoi
+	. Pass: aecaychuoi
